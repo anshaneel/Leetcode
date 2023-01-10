@@ -1,0 +1,43 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        seen = {}
+        num_to_index = {}
+        candidates.sort()
+        for i in range(len(candidates)):
+            num_to_index[candidates[i]] = i
+        
+        def backtrack(tot, history):
+
+            total = tot
+            hist = history
+            for num in candidates:
+                tot = total
+                history = hist
+
+                tot += num
+                history += "," + str(num)
+                
+                if tot > target:
+                    return
+                if tot == target:
+                    
+                    freq = [0]*len(candidates)
+                    past = history[1:].split(',')
+
+                    for i in range(len(past)):
+                        past[i] = int(past[i])
+                        freq[num_to_index[past[i]]] += 1
+
+                    key = ','.join(str(e) for e in freq)
+
+                    if key not in seen:
+                        seen[key] = past
+                    
+                    return
+                
+                backtrack(tot, history)
+
+        backtrack(0,"")
+
+        return seen.values()
