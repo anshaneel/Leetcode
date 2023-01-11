@@ -1,43 +1,20 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 
-        seen = {}
-        num_to_index = {}
-        candidates.sort()
-        for i in range(len(candidates)):
-            num_to_index[candidates[i]] = i
-        
-        def backtrack(tot, history):
+        combos = []
 
-            total = tot
-            hist = history
-            for num in candidates:
-                tot = total
-                history = hist
+        def DFS(i, total, history):
 
-                tot += num
-                history += "," + str(num)
-                
-                if tot > target:
+                if total == target:
+                    combos.append(history.copy())
                     return
-                if tot == target:
-                    
-                    freq = [0]*len(candidates)
-                    past = history[1:].split(',')
-
-                    for i in range(len(past)):
-                        past[i] = int(past[i])
-                        freq[num_to_index[past[i]]] += 1
-
-                    key = ','.join(str(e) for e in freq)
-
-                    if key not in seen:
-                        seen[key] = past
-                    
+                if total > target or i >= len(candidates):
                     return
-                
-                backtrack(tot, history)
 
-        backtrack(0,"")
+                history.append(candidates[i])
+                DFS(i, total + candidates[i], history)
+                history.pop()
+                DFS(i+1, total, history)
 
-        return seen.values()
+        DFS(0, 0, [])
+        return combos
