@@ -1,0 +1,33 @@
+# Solved in 1 attempt
+# Beats only 50% in time
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+        combos = []
+        seen = set()
+  
+        for i in range(len(nums)):
+            if nums[i] in seen:
+                continue
+            
+            target = 0 - nums[i]
+            used = {}
+            
+            for j in range(i + 1, len(nums)):
+                if nums[j] in seen or (nums[j] in used and used[nums[j]] == True):
+                    continue
+                
+                if target - nums[j] in used:
+                    combos.append([nums[i],nums[j], target - nums[j]])
+                    used[nums[j]] = True
+                    used[target - nums[j]] = True
+                    continue
+                
+                used[nums[j]] = False
+
+
+            seen.add(nums[i])
+
+
+        return combos
