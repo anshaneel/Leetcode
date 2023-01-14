@@ -1,10 +1,17 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
 
-        def dp(i, tot):
-            if i >= len(nums):
-                return tot
-            
-            return max(dp(i+2, tot + nums[i]), dp(i+1, tot))
+        i_to_max = {}
 
-        return dp(0,0)
+        def dp(i):
+            if i >= len(nums):
+                return 0
+            
+            if i in i_to_max:
+                return i_to_max[i]
+            
+            i_to_max[i] = max(dp(i+2) + nums[i], dp(i+1))
+
+            return i_to_max[i]
+
+        return dp(0)
