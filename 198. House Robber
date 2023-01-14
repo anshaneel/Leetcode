@@ -1,0 +1,10 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+
+        def dp(i, tot):
+            if i >= len(nums):
+                return tot
+            
+            return max(dp(i+2, tot + nums[i]), dp(i+1, tot))
+
+        return dp(0,0)
