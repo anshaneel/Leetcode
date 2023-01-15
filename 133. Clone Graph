@@ -1,0 +1,33 @@
+# Attempts: 1
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+    
+      # Map of all visited value and their corresponding deepcopies
+        visited = {}
+
+        def DFS(node):
+          # If node is None then return
+            if node == None:
+                return None
+            
+            # IF node has already been visited deepcopy exists just return it
+            if node.val in visited:
+                return visited[node.val]
+
+            # Add the Node to visited
+            visited[node.val] = Node(node.val, [])
+
+           # If there are no neighbors just return
+            if node.neighbors == None:
+                visited[node.val].neighbors = None
+                return visited[node.val]
+            
+            # Use DFS function recursivley to return deepcopies of the neighbors and connect them to the node
+            for neighbor in node.neighbors:
+                visited[node.val].neighbors.append(DFS(neighbor))
+
+            return visited[node.val]
+
+        
+        return DFS(node)
