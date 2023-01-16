@@ -1,0 +1,26 @@
+# Attempts: 1
+# Time: 8 minutes
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        
+        memo = {}
+
+        def paths(i,j):
+            if i == m - 1 and j == n - 1:
+                return 1
+
+            if (i,j) in memo:
+                return memo[(i,j)]
+            
+            tot = 0
+            if i < m - 1:
+                tot += paths(i+1,j)
+            if j < n - 1:
+                tot += paths(i,j+1)
+
+            memo[(i,j)] = tot
+            
+            return tot
+
+        return paths(0,0)
