@@ -1,0 +1,36 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+
+        # Combination of isAnagram and 2sum
+        # We want some way to hash the strs so is true iff the number of each letter is the same in both string
+        # One way to do this is "aab" ['a', 'b', 'c',...] -> [2,1,0,...]
+
+        # dict = {[2,1,0,...]: ["aab"]}
+        d = {}
+
+        for s in strs:
+
+            # Create list
+            l = [0]*26
+            for letter in s:
+                l[ord(letter) - 97] += 1
+            
+            lst = ""
+            for p in l:
+                lst += str(p) + ","
+            
+            # If same list is already in the dictionary it is an anagram of another word append the list
+            if lst in d:
+                d[lst].append(s)
+            else:
+            # If list is not in the dict then create a list with it present
+                d[lst] = [s]
+
+            # Now create the group list
+
+        groups = []
+
+        for lst in d:
+            groups.append(d[lst])
+
+        return groups
