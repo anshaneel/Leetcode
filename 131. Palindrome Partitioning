@@ -3,13 +3,15 @@ class Solution:
 
         subs = []
 
-        def checkPalindrome(s: str):
+        def checkPalindrome(st: str):
             Lp = 0
-            Rp = len(s) - 1
+            Rp = len(st) - 1
 
-            while Lp != Rp:
-                if s[Lp] != s[Rp]:
+            while Lp <= Rp:
+                if st[Lp] != st[Rp]:
                     return False
+                Lp += 1
+                Rp -= 1
             return True
 
         def partitions(i: int, arr: List[str]):
@@ -33,6 +35,3 @@ class Solution:
             partitions(0, [s[0]])
     
         return subs
-
-        
-
