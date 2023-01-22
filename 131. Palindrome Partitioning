@@ -1,3 +1,8 @@
+# Attemps: 1
+# Explanation (Backtracking, DP, DFS on decision tree)
+# 2 Options for each iteration: We can add the next element on its own or we can add it to the last
+# Can only add element on its own if the last element was a palindrome to make sure each element is a palindrome
+
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
 
