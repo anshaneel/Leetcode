@@ -1,0 +1,38 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+
+        subs = []
+
+        def checkPalindrome(s: str):
+            Lp = 0
+            Rp = len(s) - 1
+
+            while Lp != Rp:
+                if s[Lp] != s[Rp]:
+                    return False
+            return True
+
+        def partitions(i: int, arr: List[str]):
+
+            if checkPalindrome(arr[-1]):
+                if i == len(s) - 1:
+                    subs.append(arr)
+                    return
+                
+                new = arr.copy()
+                new.append(s[i+1])
+                partitions(i+1, new)
+
+            if i == len(s) - 1:
+                return
+    
+            arr[-1] += s[i+1]
+            partitions(i+1, arr)
+
+        if len(s) != 0:
+            partitions(0, [s[0]])
+    
+        return subs
+
+        
+
