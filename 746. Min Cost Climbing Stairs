@@ -1,0 +1,26 @@
+# Attemps: 1
+# Time: 5min
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+
+        memo = {} # (0, 100), (1, 50), ...
+        def minCost(i):
+
+            if i >= len(cost):
+                return 0
+            
+            if i in memo:
+                return memo[i]
+            
+            first_index = minCost(i+1)
+            second_index = minCost(i+2)
+
+            if first_index < second_index:
+                memo[i] = first_index + cost[i]
+            else:
+                memo[i] = second_index + cost[i]
+            
+            return memo[i]
+
+        return min(minCost(1), minCost(0))
