@@ -1,0 +1,23 @@
+Attempts: 1
+Time: 5min
+
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+
+        def islandArea(i, j) -> int:
+
+            # Check for valid coordinates
+            if i < 0 or j < 0 or i >= len(grid[0]) or j >= len(grid) or grid[j][i] == 0:
+                return 0
+            
+            grid[j][i] = 0
+            return islandArea(i+1, j) + islandArea(i, j+1) + islandArea(i-1, j) + islandArea(i, j - 1) + 1
+
+
+        max_area = 0
+        for j in range(len(grid)):
+            for i in range(len(grid[0])):
+                max_area = max(max_area, islandArea(i,j))
+
+
+        return max_area
